@@ -1,7 +1,7 @@
 import { Filter, ObjectId } from "mongodb";
 
 import DocCollection, { BaseDoc } from "../framework/doc";
-import { NotAllowedError } from "./errors";
+import { NotFoundError, NotAllowedError } from "./errors";
 
 export interface CommentDoc extends BaseDoc {
   author: ObjectId;
@@ -37,6 +37,16 @@ export default class PostConcept {
   async delete(_id: ObjectId) {
     await this.comments.deleteOne({ _id });
     return { msg: "Comment deleted successfully!" };
+  }
+
+  async isAuthor(user: ObjectId, _id: ObjectId) {
+    const post = await this.comments.readOne({ _id });
+    if (!post) {
+      throw new NotFoundError(`Post ${_id} does not exist!`);
+    }
+    if (post.author.toString() !== user.toString()) {
+      throw new PostAuthorNotMatchError(user, _id);
+    }
   }
 
   private sanitizeUpdate(update: Partial<CommentDoc>) {
