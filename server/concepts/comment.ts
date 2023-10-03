@@ -45,7 +45,7 @@ export default class PostConcept {
       throw new NotFoundError(`Post ${_id} does not exist!`);
     }
     if (post.author.toString() !== user.toString()) {
-      throw new PostAuthorNotMatchError(user, _id);
+      throw new CommentAuthorNotMatchError(user, _id);
     }
   }
 
@@ -57,5 +57,14 @@ export default class PostConcept {
         throw new NotAllowedError(`Cannot update '${key}' field!`);
       }
     }
+  }
+}
+
+export class CommentAuthorNotMatchError extends NotAllowedError {
+  constructor(
+    public readonly author: ObjectId,
+    public readonly _id: ObjectId,
+  ) {
+    super("{0} is not the author of post {1}!", author, _id);
   }
 }
