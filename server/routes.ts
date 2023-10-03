@@ -100,14 +100,14 @@ class Routes {
     } else {
       comments = await Comment.getComments({});
     }
-    return Responses.posts(comments);
+    return Responses.comments(comments);
   }
 
   @Router.post("/comments")
   async createComment(session: WebSessionDoc, content: string, target: ObjectId) {
     const user = WebSession.getUser(session);
     const created = await Comment.create(user, target, content);
-    return { msg: created.msg, comment: await Responses.post(created.comment) };
+    return { msg: created.msg, comment: await Responses.comment(created.comment) };
   }
 
   @Router.patch("/comments/:_id")
