@@ -3,9 +3,9 @@ import { ObjectId, IntegerType } from "mongodb";
 import DocCollection, { BaseDoc } from "../framework/doc";
 
 export interface LikeDoc extends BaseDoc {
+  author: ObjectId;
   target: ObjectId;
-  likes: IntegerType;
-  dislikes: IntegerType;
+  like: IntegerType;
 }
 
 export default class LikeConcept {
