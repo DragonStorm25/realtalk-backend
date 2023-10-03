@@ -4,6 +4,7 @@ import { Router, getExpressRouter } from "./framework/router";
 
 import { Friend, Post, User, WebSession, Comment } from "./app";
 import { PostDoc, PostOptions } from "./concepts/post";
+import { CommentDoc } from "./concepts/comment";
 import { UserDoc } from "./concepts/user";
 import { WebSessionDoc } from "./concepts/websession";
 import Responses from "./responses";
@@ -107,6 +108,13 @@ class Routes {
     const user = WebSession.getUser(session);
     const created = await Comment.create(user, target, content);
     return { msg: created.msg, comment: await Responses.post(created.comment) };
+  }
+
+  @Router.patch("/comments/:_id")
+  async updateComment(session: WebSessionDoc, _id: ObjectId, update: Partial<CommentDoc>) {
+    const user = WebSession.getUser(session);
+    await Comment.isAuthor(user, _id);
+    return await Comment.update(_id, update);
   }
 
   @Router.get("/friends")
