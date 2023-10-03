@@ -14,7 +14,7 @@ export default class PostConcept {
 
   async create(author: ObjectId, target: ObjectId, content: string) {
     const _id = await this.comments.createOne({ author, target, content });
-    return { msg: "Comment successfully created!", post: await this.comments.readOne({ _id }) };
+    return { msg: "Comment successfully created!", comment: await this.comments.readOne({ _id }) };
   }
 
   async getComments(query: Filter<CommentDoc>) {
