@@ -9,7 +9,7 @@ export interface CommentDoc extends BaseDoc {
   content: string;
 }
 
-export default class PostConcept {
+export default class CommentConcept {
   public readonly comments = new DocCollection<CommentDoc>("comments");
 
   async create(author: ObjectId, target: ObjectId, content: string) {
