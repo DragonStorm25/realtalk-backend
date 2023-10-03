@@ -16,10 +16,14 @@ export default class PostConcept {
     return { msg: "Comment successfully created!", post: await this.comments.readOne({ _id }) };
   }
 
-  async getPosts(query: Filter<CommentDoc>) {
+  async getComments(query: Filter<CommentDoc>) {
     const comment = await this.comments.readMany(query, {
       sort: { dateUpdated: -1 },
     });
     return comment;
+  }
+
+  async getByAuthor(author: ObjectId) {
+    return await this.getComments({ author });
   }
 }
