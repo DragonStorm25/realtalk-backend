@@ -77,6 +77,12 @@ const operations: operation[] = [
     method: "DELETE",
     fields: { id: "input" },
   },
+  {
+    name: "Create Comment",
+    endpoint: "/api/comments",
+    method: "POST",
+    fields: { content: "input", target: "input" },
+  },
 ];
 
 // Do not edit below here.
