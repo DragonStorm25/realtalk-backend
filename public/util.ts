@@ -83,6 +83,12 @@ const operations: operation[] = [
     method: "POST",
     fields: { content: "input", target: "input" },
   },
+  {
+    name: "Update Comment",
+    endpoint: "/api/comments/:id",
+    method: "PATCH",
+    fields: { id: "input", update: { content: "input" } },
+  },
 ];
 
 // Do not edit below here.
