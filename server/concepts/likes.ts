@@ -1,4 +1,4 @@
-import { ObjectId, IntegerType } from "mongodb";
+import { ObjectId } from "mongodb";
 
 import DocCollection, { BaseDoc } from "../framework/doc";
 
