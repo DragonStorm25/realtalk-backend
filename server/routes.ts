@@ -102,6 +102,13 @@ class Routes {
     return Responses.posts(comments);
   }
 
+  @Router.post("/comments")
+  async createComment(session: WebSessionDoc, content: string, target: ObjectId) {
+    const user = WebSession.getUser(session);
+    const created = await Comment.create(user, target, content);
+    return { msg: created.msg, comment: await Responses.post(created.comment) };
+  }
+
   @Router.get("/friends")
   async getFriends(session: WebSessionDoc) {
     const user = WebSession.getUser(session);
