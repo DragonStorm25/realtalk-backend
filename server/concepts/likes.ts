@@ -9,5 +9,5 @@ export interface LikeDoc extends BaseDoc {
 }
 
 export default class LikeConcept {
-  public readonly comments = new DocCollection<LikeDoc>("likes");
+  public readonly likes = new DocCollection<LikeDoc>("likes");
 }
