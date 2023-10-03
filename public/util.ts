@@ -89,6 +89,12 @@ const operations: operation[] = [
     method: "PATCH",
     fields: { id: "input", update: { content: "input" } },
   },
+  {
+    name: "Delete Comment",
+    endpoint: "/api/comments/:id",
+    method: "DELETE",
+    fields: { id: "input" },
+  },
 ];
 
 // Do not edit below here.
