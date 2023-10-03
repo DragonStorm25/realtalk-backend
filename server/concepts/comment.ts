@@ -1,6 +1,7 @@
 import { Filter, ObjectId } from "mongodb";
 
 import DocCollection, { BaseDoc } from "../framework/doc";
+import { NotAllowedError } from "./errors";
 
 export interface CommentDoc extends BaseDoc {
   author: ObjectId;
@@ -25,5 +26,21 @@ export default class PostConcept {
 
   async getByAuthor(author: ObjectId) {
     return await this.getComments({ author });
+  }
+
+  async update(_id: ObjectId, update: Partial<CommentDoc>) {
+    this.sanitizeUpdate(update);
+    await this.comments.updateOne({ _id }, update);
+    return { msg: "Post successfully updated!" };
+  }
+
+  private sanitizeUpdate(update: Partial<CommentDoc>) {
+    // Make sure the update cannot change the author.
+    const allowedUpdates = ["content", "options"];
+    for (const key in update) {
+      if (!allowedUpdates.includes(key)) {
+        throw new NotAllowedError(`Cannot update '${key}' field!`);
+      }
+    }
   }
 }
