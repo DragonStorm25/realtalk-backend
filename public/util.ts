@@ -54,12 +54,6 @@ const operations: operation[] = [
     fields: { username: "input" },
   },
   {
-    name: "Get Posts (empty for all)",
-    endpoint: "/api/posts",
-    method: "GET",
-    fields: { author: "input" },
-  },
-  {
     name: "Create Post",
     endpoint: "/api/posts",
     method: "POST",
@@ -76,6 +70,12 @@ const operations: operation[] = [
     endpoint: "/api/posts/:id",
     method: "DELETE",
     fields: { id: "input" },
+  },
+  {
+    name: "Get Posts (empty for all)",
+    endpoint: "/api/posts",
+    method: "GET",
+    fields: { author: "input" },
   },
   {
     name: "Create Comment",
