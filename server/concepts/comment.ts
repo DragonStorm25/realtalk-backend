@@ -31,12 +31,12 @@ export default class PostConcept {
   async update(_id: ObjectId, update: Partial<CommentDoc>) {
     this.sanitizeUpdate(update);
     await this.comments.updateOne({ _id }, update);
-    return { msg: "Post successfully updated!" };
+    return { msg: "Comment successfully updated!" };
   }
 
   async delete(_id: ObjectId) {
     await this.comments.deleteOne({ _id });
-    return { msg: "Post deleted successfully!" };
+    return { msg: "Comment deleted successfully!" };
   }
 
   private sanitizeUpdate(update: Partial<CommentDoc>) {
