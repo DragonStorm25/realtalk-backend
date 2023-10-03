@@ -90,6 +90,18 @@ class Routes {
     return Post.delete(_id);
   }
 
+  @Router.get("/comments")
+  async getComments(author?: string) {
+    let comments;
+    if (author) {
+      const id = (await User.getUserByUsername(author))._id;
+      comments = await Comment.getByAuthor(id);
+    } else {
+      comments = await Comment.getComments({});
+    }
+    return Responses.posts(comments);
+  }
+
   @Router.get("/friends")
   async getFriends(session: WebSessionDoc) {
     const user = WebSession.getUser(session);
