@@ -117,6 +117,13 @@ class Routes {
     return await Comment.update(_id, update);
   }
 
+  @Router.delete("/comments/:_id")
+  async deleteComment(session: WebSessionDoc, _id: ObjectId) {
+    const user = WebSession.getUser(session);
+    await Comment.isAuthor(user, _id);
+    return Comment.delete(_id);
+  }
+
   @Router.get("/friends")
   async getFriends(session: WebSessionDoc) {
     const user = WebSession.getUser(session);
