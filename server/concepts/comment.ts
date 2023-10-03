@@ -34,6 +34,11 @@ export default class PostConcept {
     return { msg: "Post successfully updated!" };
   }
 
+  async delete(_id: ObjectId) {
+    await this.comments.deleteOne({ _id });
+    return { msg: "Post deleted successfully!" };
+  }
+
   private sanitizeUpdate(update: Partial<CommentDoc>) {
     // Make sure the update cannot change the author.
     const allowedUpdates = ["content", "options"];
