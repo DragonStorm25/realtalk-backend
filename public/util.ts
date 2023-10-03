@@ -95,6 +95,12 @@ const operations: operation[] = [
     method: "DELETE",
     fields: { id: "input" },
   },
+  {
+    name: "Get Comments (empty for all)",
+    endpoint: "/api/comments",
+    method: "GET",
+    fields: { author: "input" },
+  },
 ];
 
 // Do not edit below here.
