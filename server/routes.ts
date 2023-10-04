@@ -151,6 +151,33 @@ class Routes {
     return Comment.delete(_id);
   }
 
+  @Router.get("/comments/:_id/likes")
+  async getCommentLikes(_id: ObjectId) {
+    await Comment.assertCommentExists(_id);
+    return Like.getLikes(_id);
+  }
+
+  @Router.patch("/comments/:_id/like")
+  async addCommentLike(session: WebSessionDoc, _id: ObjectId) {
+    await Comment.assertCommentExists(_id);
+    const user = WebSession.getUser(session);
+    return Like.like(user, _id);
+  }
+
+  @Router.patch("/comments/:_id/dislike")
+  async addCommentDislike(session: WebSessionDoc, _id: ObjectId) {
+    await Comment.assertCommentExists(_id);
+    const user = WebSession.getUser(session);
+    return Like.dislike(user, _id);
+  }
+
+  @Router.patch("/comments/:_id/neutral")
+  async neutralizeComment(session: WebSessionDoc, _id: ObjectId) {
+    await Comment.assertCommentExists(_id);
+    const user = WebSession.getUser(session);
+    return Like.neutralize(user, _id);
+  }
+
   @Router.get("/friends")
   async getFriends(session: WebSessionDoc) {
     const user = WebSession.getUser(session);
