@@ -19,7 +19,7 @@ export default class LikeConcept {
 
   async like(author: ObjectId, target: ObjectId) {
     const like = await this.likes.readOne({ author });
-    if (!like) {
+    if (!like || like.like == LikeType.Dislike) {
       const _id = await this.likes.createOne({ author, target, like: LikeType.Like });
       return { msg: "Like successfully applied!", comment: await this.likes.readOne({ _id }) };
     } else {
@@ -29,7 +29,7 @@ export default class LikeConcept {
 
   async dislike(author: ObjectId, target: ObjectId) {
     const dislike = await this.likes.readOne({ author });
-    if (!dislike) {
+    if (!dislike || dislike.like == LikeType.Like) {
       const _id = await this.likes.createOne({ author, target, like: LikeType.Dislike });
       return { msg: "Disike successfully applied!", comment: await this.likes.readOne({ _id }) };
     } else {
