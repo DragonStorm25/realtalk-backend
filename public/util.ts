@@ -125,6 +125,30 @@ const operations: operation[] = [
     method: "GET",
     fields: { author: "input" },
   },
+  {
+    name: "Get Comment Likes",
+    endpoint: "/api/comments/:id/likes",
+    method: "GET",
+    fields: { id: "input" },
+  },
+  {
+    name: "Like Comment",
+    endpoint: "/api/comments/:id/like",
+    method: "PATCH",
+    fields: { id: "input" },
+  },
+  {
+    name: "Dislike Comment",
+    endpoint: "/api/comments/:id/dislike",
+    method: "PATCH",
+    fields: { id: "input" },
+  },
+  {
+    name: "Unlike/Undislike Comment",
+    endpoint: "/api/comments/:id/neutral",
+    method: "PATCH",
+    fields: { id: "input" },
+  },
 ];
 
 // Do not edit below here.
