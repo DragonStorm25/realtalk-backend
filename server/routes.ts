@@ -111,6 +111,13 @@ class Routes {
     return Like.dislike(user, _id);
   }
 
+  @Router.patch("/posts/:_id/neutral")
+  async neutralizePost(session: WebSessionDoc, _id: ObjectId) {
+    await Post.assertPostExists(_id);
+    const user = WebSession.getUser(session);
+    return Like.neutralize(user, _id);
+  }
+
   @Router.get("/comments")
   async getComments(author?: string) {
     let comments;
