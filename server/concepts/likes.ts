@@ -26,8 +26,8 @@ export default class LikeConcept {
     return { msg: "Disike successfully applied!", comment: await this.likes.readOne({ _id }) };
   }
 
-  async neutralize(_id: ObjectId) {
-    await this.likes.deleteOne({ _id });
+  async neutralize(author: ObjectId, target: ObjectId) {
+    await this.likes.deleteOne({ author, target });
     return { msg: "Likes and dislikes removed successfully!" };
   }
 
