@@ -2,7 +2,7 @@ import { ObjectId } from "mongodb";
 
 import { Router, getExpressRouter } from "./framework/router";
 
-import { Friend, Post, User, WebSession, Comment } from "./app";
+import { Friend, Post, User, WebSession, Comment, Like } from "./app";
 import { PostDoc, PostOptions } from "./concepts/post";
 import { CommentDoc } from "./concepts/comment";
 import { UserDoc } from "./concepts/user";
@@ -89,6 +89,11 @@ class Routes {
     const user = WebSession.getUser(session);
     await Post.isAuthor(user, _id);
     return Post.delete(_id);
+  }
+
+  @Router.patch("/posts/:_id/likes")
+  async getLikes(_id: ObjectId) {
+    return Like.getLikes(_id);
   }
 
   @Router.get("/comments")
