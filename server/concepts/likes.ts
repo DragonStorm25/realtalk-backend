@@ -28,8 +28,13 @@ export default class LikeConcept {
   }
 
   async dislike(author: ObjectId, target: ObjectId) {
-    const _id = await this.likes.createOne({ author, target, like: LikeType.Dislike });
-    return { msg: "Disike successfully applied!", comment: await this.likes.readOne({ _id }) };
+    const dislike = await this.likes.readOne({ author });
+    if (!dislike) {
+      const _id = await this.likes.createOne({ author, target, like: LikeType.Dislike });
+      return { msg: "Disike successfully applied!", comment: await this.likes.readOne({ _id }) };
+    } else {
+      throw new AlreadyDisliked(author, target);
+    }
   }
 
   async neutralize(author: ObjectId, target: ObjectId) {
@@ -51,5 +56,14 @@ export class AlreadyLiked extends NotAllowedError {
     public readonly _id: ObjectId,
   ) {
     super("{0} has already liked {1}!", author, _id);
+  }
+}
+
+export class AlreadyDisliked extends NotAllowedError {
+  constructor(
+    public readonly author: ObjectId,
+    public readonly _id: ObjectId,
+  ) {
+    super("{0} has already disliked {1}!", author, _id);
   }
 }
