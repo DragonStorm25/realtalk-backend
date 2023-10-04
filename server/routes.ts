@@ -26,6 +26,21 @@ class Routes {
     return await User.getUserByUsername(username);
   }
 
+  @Router.get("/users/:username/karma")
+  async getKarma(username: string) {
+    // Get karma of user
+  }
+
+  @Router.patch("/users/:username/karma/increase")
+  async increaseKarma(username: string) {
+    // Increase karma of user
+  }
+
+  @Router.patch("/users/:username/karma/decrease")
+  async decreaseKarma(username: string) {
+    // Decrease karma of user
+  }
+
   @Router.post("/users")
   async createUser(session: WebSessionDoc, username: string, password: string) {
     WebSession.isLoggedOut(session);
