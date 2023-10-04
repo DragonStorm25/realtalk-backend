@@ -53,9 +53,11 @@ export default class PostConcept {
     }
   }
 
-  async doesPostExist(_id: ObjectId) {
+  async assertPostExists(_id: ObjectId) {
     const post = await this.posts.readOne({ _id });
-    return !!post;
+    if (!post) {
+      throw new NotFoundError(`Post ${_id} does not exist!`);
+    }
   }
 
   private sanitizeUpdate(update: Partial<PostDoc>) {
