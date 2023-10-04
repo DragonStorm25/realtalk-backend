@@ -112,7 +112,7 @@ class Routes {
   }
 
   @Router.patch("/posts/:_id/neutral_like")
-  async neutralizePost(session: WebSessionDoc, _id: ObjectId) {
+  async neutralLikePost(session: WebSessionDoc, _id: ObjectId) {
     await Post.assertPostExists(_id);
     const user = WebSession.getUser(session);
     return Like.neutralize(user, _id);
