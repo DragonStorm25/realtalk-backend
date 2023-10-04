@@ -3,9 +3,9 @@ import { ObjectId } from "mongodb";
 import DocCollection, { BaseDoc } from "../framework/doc";
 
 export enum LikeType {
-  Like,
-  Neutral,
-  Dislike,
+  Like = 1,
+  Neutral = 0,
+  Dislike = -1,
 }
 
 export interface LikeDoc extends BaseDoc {
@@ -16,4 +16,9 @@ export interface LikeDoc extends BaseDoc {
 
 export default class LikeConcept {
   public readonly likes = new DocCollection<LikeDoc>("likes");
+
+  async like(author: ObjectId, target: ObjectId) {
+    const _id = await this.likes.createOne({ author, target, like: LikeType.Like });
+    return { msg: "Like successfully applied!", comment: await this.likes.readOne({ _id }) };
+  }
 }
