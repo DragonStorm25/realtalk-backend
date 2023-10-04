@@ -4,7 +4,6 @@ import DocCollection, { BaseDoc } from "../framework/doc";
 
 export enum LikeType {
   Like = 1,
-  Neutral = 0,
   Dislike = -1,
 }
 
