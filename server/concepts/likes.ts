@@ -30,4 +30,16 @@ export default class LikeConcept {
     await this.likes.deleteOne({ _id });
     return { msg: "Likes and dislikes removed successfully!" };
   }
+
+  async getLikes(target: ObjectId) {
+    const likeDislikes = await this.likes.readMany(
+      { target: target },
+      {
+        sort: { dateUpdated: -1 },
+      },
+    );
+    const likeCount = likeDislikes.filter((x: LikeDoc) => x.like == LikeType.Like).length;
+    const dislikeCount = likeDislikes.filter((x: LikeDoc) => x.like == LikeType.Dislike).length;
+    return { likes: likeCount, dislikes: dislikeCount };
+  }
 }
