@@ -91,7 +91,7 @@ class Routes {
     return Post.delete(_id);
   }
 
-  @Router.patch("/posts/:_id/likes")
+  @Router.get("/posts/:_id/likes")
   async getLikes(_id: ObjectId) {
     return Like.getLikes(_id);
   }
