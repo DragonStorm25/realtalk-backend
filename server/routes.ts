@@ -96,6 +96,12 @@ class Routes {
     return Like.getLikes(_id);
   }
 
+  @Router.patch("/posts/:_id/like")
+  async addLike(session: WebSessionDoc, _id: ObjectId) {
+    const user = WebSession.getUser(session);
+    return Like.like(user, _id);
+  }
+
   @Router.get("/comments")
   async getComments(author?: string) {
     let comments;
