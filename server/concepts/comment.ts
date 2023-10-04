@@ -49,6 +49,13 @@ export default class CommentConcept {
     }
   }
 
+  async assertCommentExists(_id: ObjectId) {
+    const comment = await this.comments.readOne({ _id });
+    if (!comment) {
+      throw new NotFoundError(`Comment ${_id} does not exist!`);
+    }
+  }
+
   private sanitizeUpdate(update: Partial<CommentDoc>) {
     // Make sure the update cannot change the author.
     const allowedUpdates = ["content", "options"];
