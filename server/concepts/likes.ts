@@ -33,7 +33,7 @@ export default class LikeConcept {
     if (!dislike || dislike.like == LikeType.Like) {
       await this.likes.deleteOne({ author });
       const _id = await this.likes.createOne({ author, target, like: LikeType.Dislike });
-      return { msg: "Disike successfully applied!", comment: await this.likes.readOne({ _id }) };
+      return { msg: "Dislike successfully applied!", comment: await this.likes.readOne({ _id }) };
     } else {
       throw new AlreadyDisliked(author, target);
     }
