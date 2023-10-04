@@ -197,7 +197,7 @@ class Routes {
   }
 
   @Router.patch("/comments/:_id/neutral_like")
-  async neutralizeComment(session: WebSessionDoc, _id: ObjectId) {
+  async neutralLikeComment(session: WebSessionDoc, _id: ObjectId) {
     await Comment.assertCommentExists(_id);
     const user = WebSession.getUser(session);
     return Like.neutralize(user, _id);
