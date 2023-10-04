@@ -80,7 +80,7 @@ const operations: operation[] = [
   {
     name: "Get Post Likes",
     endpoint: "/api/posts/:id/likes",
-    method: "PATCH",
+    method: "GET",
     fields: { id: "input" },
   },
   {
