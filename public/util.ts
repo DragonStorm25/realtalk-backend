@@ -84,6 +84,12 @@ const operations: operation[] = [
     fields: { id: "input" },
   },
   {
+    name: "Like Post",
+    endpoint: "/api/posts/:id/like",
+    method: "PATCH",
+    fields: { id: "input" },
+  },
+  {
     name: "Create Comment",
     endpoint: "/api/comments",
     method: "POST",
