@@ -102,6 +102,12 @@ class Routes {
     return Like.like(user, _id);
   }
 
+  @Router.patch("/posts/:_id/dislike")
+  async addDislike(session: WebSessionDoc, _id: ObjectId) {
+    const user = WebSession.getUser(session);
+    return Like.dislike(user, _id);
+  }
+
   @Router.get("/comments")
   async getComments(author?: string) {
     let comments;
