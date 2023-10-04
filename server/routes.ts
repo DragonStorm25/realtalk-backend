@@ -111,7 +111,7 @@ class Routes {
     return Like.dislike(user, _id);
   }
 
-  @Router.patch("/posts/:_id/neutral")
+  @Router.patch("/posts/:_id/neutral_like")
   async neutralizePost(session: WebSessionDoc, _id: ObjectId) {
     await Post.assertPostExists(_id);
     const user = WebSession.getUser(session);
@@ -172,7 +172,7 @@ class Routes {
     return Like.dislike(user, _id);
   }
 
-  @Router.patch("/comments/:_id/neutral")
+  @Router.patch("/comments/:_id/neutral_like")
   async neutralizeComment(session: WebSessionDoc, _id: ObjectId) {
     await Comment.assertCommentExists(_id);
     const user = WebSession.getUser(session);
