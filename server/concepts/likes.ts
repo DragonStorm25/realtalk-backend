@@ -32,12 +32,7 @@ export default class LikeConcept {
   }
 
   async getLikes(target: ObjectId) {
-    const likeDislikes = await this.likes.readMany(
-      { target: target },
-      {
-        sort: { dateUpdated: -1 },
-      },
-    );
+    const likeDislikes = await this.likes.readMany({ target: target });
     const likeCount = likeDislikes.filter((x: LikeDoc) => x.like == LikeType.Like).length;
     const dislikeCount = likeDislikes.filter((x: LikeDoc) => x.like == LikeType.Dislike).length;
     return { likes: likeCount, dislikes: dislikeCount };
