@@ -118,6 +118,30 @@ class Routes {
     return Like.neutralize(user, _id);
   }
 
+  @Router.get("/posts/:_id/trusts")
+  async getPostTrusts(_id: ObjectId) {
+    await Post.assertPostExists(_id);
+    // Get trusts/mistrusts of post
+  }
+
+  @Router.patch("/posts/:_id/trust")
+  async addPostTrust(session: WebSessionDoc, _id: ObjectId) {
+    await Post.assertPostExists(_id);
+    // Add trust to post
+  }
+
+  @Router.patch("/posts/:_id/mistrust")
+  async addPostMistrust(session: WebSessionDoc, _id: ObjectId) {
+    await Post.assertPostExists(_id);
+    // Add mistrust to post
+  }
+
+  @Router.patch("/posts/:_id/neutral_trust")
+  async neutralTrustPost(session: WebSessionDoc, _id: ObjectId) {
+    await Post.assertPostExists(_id);
+    // Neutralize trusts on post
+  }
+
   @Router.get("/comments")
   async getComments(author?: string) {
     let comments;
