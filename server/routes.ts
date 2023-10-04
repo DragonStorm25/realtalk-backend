@@ -92,20 +92,20 @@ class Routes {
   }
 
   @Router.get("/posts/:_id/likes")
-  async getLikes(_id: ObjectId) {
+  async getPostLikes(_id: ObjectId) {
     await Post.assertPostExists(_id);
     return Like.getLikes(_id);
   }
 
   @Router.patch("/posts/:_id/like")
-  async addLike(session: WebSessionDoc, _id: ObjectId) {
+  async addPostLike(session: WebSessionDoc, _id: ObjectId) {
     await Post.assertPostExists(_id);
     const user = WebSession.getUser(session);
     return Like.like(user, _id);
   }
 
   @Router.patch("/posts/:_id/dislike")
-  async addDislike(session: WebSessionDoc, _id: ObjectId) {
+  async addPostDislike(session: WebSessionDoc, _id: ObjectId) {
     await Post.assertPostExists(_id);
     const user = WebSession.getUser(session);
     return Like.dislike(user, _id);
