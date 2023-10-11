@@ -156,7 +156,8 @@ class Routes {
   @Router.patch("/posts/:_id/neutral_trust")
   async neutralTrustPost(session: WebSessionDoc, _id: ObjectId) {
     await Post.assertPostExists(_id);
-    // Neutralize trusts on post
+    const user = WebSession.getUser(session);
+    return Trust.neutralize(user, _id);
   }
 
   @Router.get("/comments")
