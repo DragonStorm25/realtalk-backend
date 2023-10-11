@@ -136,7 +136,7 @@ class Routes {
   @Router.get("/posts/:_id/trusts")
   async getPostTrusts(_id: ObjectId) {
     await Post.assertPostExists(_id);
-    // Get trusts/mistrusts of post
+    return Trust.getTrusts(_id);
   }
 
   @Router.patch("/posts/:_id/trust")
