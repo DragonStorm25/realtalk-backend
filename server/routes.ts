@@ -224,7 +224,7 @@ class Routes {
   @Router.get("/comments/:_id/trusts")
   async getCommentTrusts(_id: ObjectId) {
     await Comment.assertCommentExists(_id);
-    // Get trusts/mistrusts of comment
+    return Trust.getTrusts(_id);
   }
 
   @Router.patch("/comments/:_id/trust")
