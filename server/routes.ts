@@ -2,7 +2,7 @@ import { ObjectId } from "mongodb";
 
 import { Router, getExpressRouter } from "./framework/router";
 
-import { Friend, Post, User, WebSession, Comment, Like } from "./app";
+import { Friend, Post, User, WebSession, Comment, Like, Trust } from "./app";
 import { PostDoc, PostOptions } from "./concepts/post";
 import { CommentDoc } from "./concepts/comment";
 import { UserDoc } from "./concepts/user";
