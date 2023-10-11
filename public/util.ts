@@ -167,6 +167,24 @@ const operations: operation[] = [
     method: "PATCH",
     fields: { id: "input" },
   },
+  {
+    name: "Trust Comment",
+    endpoint: "/api/comments/:id/trust",
+    method: "PATCH",
+    fields: { id: "input" },
+  },
+  {
+    name: "Mistrust Comment",
+    endpoint: "/api/comments/:id/mistrust",
+    method: "PATCH",
+    fields: { id: "input" },
+  },
+  {
+    name: "Untrust/Unmistrust Comment",
+    endpoint: "/api/comments/:id/neutral_trust",
+    method: "PATCH",
+    fields: { id: "input" },
+  },
 ];
 
 // Do not edit below here.
