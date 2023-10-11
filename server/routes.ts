@@ -142,13 +142,15 @@ class Routes {
   @Router.patch("/posts/:_id/trust")
   async addPostTrust(session: WebSessionDoc, _id: ObjectId) {
     await Post.assertPostExists(_id);
-    // Add trust to post
+    const user = WebSession.getUser(session);
+    return Trust.trust(user, _id);
   }
 
   @Router.patch("/posts/:_id/mistrust")
   async addPostMistrust(session: WebSessionDoc, _id: ObjectId) {
     await Post.assertPostExists(_id);
-    // Add mistrust to post
+    const user = WebSession.getUser(session);
+    return Trust.mistrust(user, _id);
   }
 
   @Router.patch("/posts/:_id/neutral_trust")
