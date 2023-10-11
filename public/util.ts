@@ -97,7 +97,7 @@ const operations: operation[] = [
   },
   {
     name: "Unlike/Undislike Post",
-    endpoint: "/api/posts/:id/neutral",
+    endpoint: "/api/posts/:id/neutral_like",
     method: "PATCH",
     fields: { id: "input" },
   },
@@ -163,7 +163,7 @@ const operations: operation[] = [
   },
   {
     name: "Unlike/Undislike Comment",
-    endpoint: "/api/comments/:id/neutral",
+    endpoint: "/api/comments/:id/neutral_like",
     method: "PATCH",
     fields: { id: "input" },
   },
