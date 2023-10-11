@@ -102,6 +102,12 @@ const operations: operation[] = [
     fields: { id: "input" },
   },
   {
+    name: "Get Post Trusts",
+    endpoint: "/api/posts/:id/trusts",
+    method: "GET",
+    fields: { id: "input" },
+  },
+  {
     name: "Trust Post",
     endpoint: "/api/posts/:id/trust",
     method: "PATCH",
@@ -165,6 +171,12 @@ const operations: operation[] = [
     name: "Unlike/Undislike Comment",
     endpoint: "/api/comments/:id/neutral_like",
     method: "PATCH",
+    fields: { id: "input" },
+  },
+  {
+    name: "Get Comment Trusts",
+    endpoint: "/api/comments/:id/trusts",
+    method: "GET",
     fields: { id: "input" },
   },
   {
