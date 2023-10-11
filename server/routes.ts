@@ -230,19 +230,22 @@ class Routes {
   @Router.patch("/comments/:_id/trust")
   async addCommentTrust(session: WebSessionDoc, _id: ObjectId) {
     await Comment.assertCommentExists(_id);
-    // Add trust to comment
+    const user = WebSession.getUser(session);
+    return Trust.trust(user, _id);
   }
 
   @Router.patch("/comments/:_id/mistrust")
   async addCommentMistrusts(session: WebSessionDoc, _id: ObjectId) {
     await Comment.assertCommentExists(_id);
-    // Add mistrust to comment
+    const user = WebSession.getUser(session);
+    return Trust.mistrust(user, _id);
   }
 
   @Router.patch("/comments/:_id/neutral_trust")
   async neutralTrustComment(session: WebSessionDoc, _id: ObjectId) {
     await Comment.assertCommentExists(_id);
-    // Neutralize trusts on comment
+    const user = WebSession.getUser(session);
+    return Trust.neutralize(user, _id);
   }
 
   @Router.get("/friends")
