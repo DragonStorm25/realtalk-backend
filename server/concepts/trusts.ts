@@ -22,7 +22,7 @@ export default class TrustConcept {
     if (!trust || trust.trust == TrustType.Mistrust) {
       await this.trusts.deleteOne({ author });
       const _id = await this.trusts.createOne({ author, target, trust: TrustType.Trust });
-      return { msg: "Trust successfully applied!", comment: await this.trusts.readOne({ _id }) };
+      return { msg: "Trust successfully applied!", comment: await this.trusts.readOne({ _id }), typeRemoved: trust?.trust };
     } else {
       throw new AlreadyTrusted(author, target);
     }
@@ -33,7 +33,7 @@ export default class TrustConcept {
     if (!mistrust || mistrust.trust == TrustType.Trust) {
       await this.trusts.deleteOne({ author });
       const _id = await this.trusts.createOne({ author, target, trust: TrustType.Mistrust });
-      return { msg: "Mistrust successfully applied!", comment: await this.trusts.readOne({ _id }) };
+      return { msg: "Mistrust successfully applied!", comment: await this.trusts.readOne({ _id }), typeRemoved: mistrust?.trust };
     } else {
       throw new AlreadyMistrusted(author, target);
     }
