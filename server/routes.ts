@@ -169,7 +169,7 @@ class Routes {
         karma = await Karma.increaseKarma(author);
       } else {
         console.log(author);
-        karma = { msg: "Karma not modified!", karmaInfo: await Karma.karma.readOne({ user: author }) };
+        karma = { msg: "Karma not modified!", karma: await Karma.karma.readOne({ user: author }) };
       }
       return { trustInfo: trustInfo, karmaInfo: karma };
     }
@@ -280,7 +280,7 @@ class Routes {
       } else if (typeRemoved == TrustType.Mistrust) {
         karma = await Karma.increaseKarma(author);
       } else {
-        karma = { msg: "Karma not modified!", karmaInfo: await Karma.karma.readOne({ user: author }) };
+        karma = { msg: "Karma not modified!", karma: await Karma.karma.readOne({ user: author }) };
       }
       return { trustInfo: trustInfo, karmaInfo: karma };
     }
