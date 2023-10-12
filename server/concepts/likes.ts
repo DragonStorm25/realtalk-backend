@@ -18,7 +18,7 @@ export default class LikeConcept {
   public readonly likes = new DocCollection<LikeDoc>("likes");
 
   async like(author: ObjectId, target: ObjectId) {
-    const like = await this.likes.readOne({ author });
+    const like = await this.likes.readOne({ author, target });
     if (!like || like.like == LikeType.Dislike) {
       await this.likes.deleteOne({ author });
       const _id = await this.likes.createOne({ author, target, like: LikeType.Like });
@@ -29,7 +29,7 @@ export default class LikeConcept {
   }
 
   async dislike(author: ObjectId, target: ObjectId) {
-    const dislike = await this.likes.readOne({ author });
+    const dislike = await this.likes.readOne({ author, target });
     if (!dislike || dislike.like == LikeType.Like) {
       await this.likes.deleteOne({ author });
       const _id = await this.likes.createOne({ author, target, like: LikeType.Dislike });
