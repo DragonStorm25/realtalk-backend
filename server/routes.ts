@@ -32,16 +32,6 @@ class Routes {
     await Karma.getKarma(user._id);
   }
 
-  @Router.patch("/users/:username/karma/increase")
-  async increaseKarma(username: string) {
-    // Increase karma of user
-  }
-
-  @Router.patch("/users/:username/karma/decrease")
-  async decreaseKarma(username: string) {
-    // Decrease karma of user
-  }
-
   @Router.post("/users")
   async createUser(session: WebSessionDoc, username: string, password: string) {
     WebSession.isLoggedOut(session);
@@ -143,15 +133,23 @@ class Routes {
   @Router.patch("/posts/:_id/trust")
   async addPostTrust(session: WebSessionDoc, _id: ObjectId) {
     await Post.assertPostExists(_id);
+    const author = (await Post.posts.readOne({ _id }))?.author;
     const user = WebSession.getUser(session);
-    return Trust.trust(user, _id);
+    if (author) {
+      const karma = await Karma.increaseKarma(author);
+      return { trustInfo: Trust.trust(user, _id), karmaInfo: karma };
+    }
   }
 
   @Router.patch("/posts/:_id/mistrust")
   async addPostMistrust(session: WebSessionDoc, _id: ObjectId) {
     await Post.assertPostExists(_id);
+    const author = (await Post.posts.readOne({ _id }))?.author;
     const user = WebSession.getUser(session);
-    return Trust.mistrust(user, _id);
+    if (author) {
+      const karma = await Karma.decreaseKarma(author);
+      return { trustInfo: Trust.trust(user, _id), karmaInfo: karma };
+    }
   }
 
   @Router.patch("/posts/:_id/neutral_trust")
