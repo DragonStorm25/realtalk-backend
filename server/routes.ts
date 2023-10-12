@@ -259,7 +259,7 @@ class Routes {
     const author = (await Comment.comments.readOne({ _id }))?.author;
     const user = WebSession.getUser(session);
     if (author) {
-      const mistrust = await Trust.trust(user, _id);
+      const mistrust = await Trust.mistrust(user, _id);
       const karma = await Karma.decreaseKarma(author);
       return { trustInfo: mistrust, karmaInfo: karma };
     }
