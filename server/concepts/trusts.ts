@@ -18,7 +18,7 @@ export default class TrustConcept {
   public readonly trusts = new DocCollection<TrustDoc>("trusts");
 
   async trust(author: ObjectId, target: ObjectId) {
-    const trust = await this.trusts.readOne({ author });
+    const trust = await this.trusts.readOne({ author, target });
     if (!trust || trust.trust == TrustType.Mistrust) {
       await this.trusts.deleteOne({ author });
       const _id = await this.trusts.createOne({ author, target, trust: TrustType.Trust });
@@ -29,7 +29,7 @@ export default class TrustConcept {
   }
 
   async mistrust(author: ObjectId, target: ObjectId) {
-    const mistrust = await this.trusts.readOne({ author });
+    const mistrust = await this.trusts.readOne({ author, target });
     if (!mistrust || mistrust.trust == TrustType.Trust) {
       await this.trusts.deleteOne({ author });
       const _id = await this.trusts.createOne({ author, target, trust: TrustType.Mistrust });
