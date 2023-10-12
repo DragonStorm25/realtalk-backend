@@ -262,8 +262,18 @@ class Routes {
   @Router.patch("/comments/:_id/neutral_trust")
   async neutralTrustComment(session: WebSessionDoc, _id: ObjectId) {
     await Comment.assertCommentExists(_id);
+    const author = (await Post.posts.readOne({ _id }))?.author;
     const user = WebSession.getUser(session);
-    return Trust.neutralize(user, _id);
+    const trustInfo = Trust.neutralize(user, _id);
+    if (author) {
+      let karma;
+      if ((await trustInfo).typeRemoved == TrustType.Trust) {
+        karma = await Karma.decreaseKarma(author);
+      } else {
+        karma = await Karma.increaseKarma(author);
+      }
+      return { trustInfo: trustInfo, karmaInfo: karma };
+    }
   }
 
   @Router.get("/friends")
