@@ -10,20 +10,22 @@ export interface KarmaDoc extends BaseDoc {
 export default class KarmaConcept {
   public readonly karma = new DocCollection<KarmaDoc>("karma");
 
-  async increaseKarma(user: ObjectId) {
+  async increaseKarma(user: ObjectId, previouslyMistrusted: boolean) {
     const karma = await this.karma.readOne({ user });
     if (karma) {
-      await this.karma.updateOne({ user }, { karmaAmount: karma.karmaAmount + 1 });
+      const increaseAmount = previouslyMistrusted ? 2 : 1;
+      await this.karma.updateOne({ user }, { karmaAmount: karma.karmaAmount + increaseAmount });
     } else {
       await this.karma.createOne({ user, karmaAmount: 1 });
     }
     return { msg: "Karma successfully increased!", karmaInfo: await this.karma.readOne({ user }) };
   }
 
-  async decreaseKarma(user: ObjectId) {
+  async decreaseKarma(user: ObjectId, previouslyTrusted: boolean) {
     const karma = await this.karma.readOne({ user });
     if (karma) {
-      await this.karma.updateOne({ user }, { karmaAmount: karma.karmaAmount - 1 });
+      const decreaseAmount = previouslyTrusted ? 2 : 1;
+      await this.karma.updateOne({ user }, { karmaAmount: karma.karmaAmount - decreaseAmount });
     } else {
       await this.karma.createOne({ user, karmaAmount: 1 });
     }
