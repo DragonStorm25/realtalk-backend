@@ -8,6 +8,7 @@ import { CommentDoc } from "./concepts/comment";
 import { UserDoc } from "./concepts/user";
 import { WebSessionDoc } from "./concepts/websession";
 import Responses from "./responses";
+import { TrustType } from "./concepts/trusts";
 
 class Routes {
   @Router.get("/session")
@@ -155,8 +156,18 @@ class Routes {
   @Router.patch("/posts/:_id/neutral_trust")
   async neutralTrustPost(session: WebSessionDoc, _id: ObjectId) {
     await Post.assertPostExists(_id);
+    const author = (await Post.posts.readOne({ _id }))?.author;
     const user = WebSession.getUser(session);
-    return Trust.neutralize(user, _id);
+    const trustInfo = Trust.neutralize(user, _id);
+    if (author) {
+      let karma;
+      if ((await trustInfo).typeRemoved == TrustType.Trust) {
+        karma = await Karma.decreaseKarma(author);
+      } else {
+        karma = await Karma.increaseKarma(author);
+      }
+      return { trustInfo: trustInfo, karmaInfo: karma };
+    }
   }
 
   @Router.get("/comments")
