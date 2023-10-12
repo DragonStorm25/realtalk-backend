@@ -40,8 +40,9 @@ export default class TrustConcept {
   }
 
   async neutralize(author: ObjectId, target: ObjectId) {
+    const type = (await this.trusts.readOne({ author, target }))?.trust;
     await this.trusts.deleteOne({ author, target });
-    return { msg: "Trusts and mistrusts removed successfully!" };
+    return { msg: "Trusts and mistrusts removed successfully!", typeRemoved: type };
   }
 
   async getTrusts(target: ObjectId) {
