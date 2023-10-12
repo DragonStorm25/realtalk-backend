@@ -17,7 +17,7 @@ export default class KarmaConcept {
     } else {
       await this.karma.createOne({ user, karmaAmount: 1 });
     }
-    return { msg: "Karma successfully increased!", comment: await this.karma.readOne({ user }) };
+    return { msg: "Karma successfully increased!", karmaInfo: await this.karma.readOne({ user }) };
   }
 
   async decreaseKarma(user: ObjectId) {
@@ -27,7 +27,7 @@ export default class KarmaConcept {
     } else {
       await this.karma.createOne({ user, karmaAmount: 1 });
     }
-    return { msg: "Karma successfully decreased!", comment: await this.karma.readOne({ user }) };
+    return { msg: "Karma successfully decreased!", karmaInfo: await this.karma.readOne({ user }) };
   }
 
   async getKarma(user: ObjectId) {
