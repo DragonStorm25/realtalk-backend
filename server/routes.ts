@@ -137,7 +137,7 @@ class Routes {
     const user = WebSession.getUser(session);
     if (author) {
       const trust = await Trust.trust(user, _id);
-      const karma = await Karma.increaseKarma(author);
+      const karma = await Karma.increaseKarma(author, trust.typeRemoved == TrustType.Mistrust);
       return { trustInfo: trust, karmaInfo: karma };
     }
   }
@@ -149,7 +149,7 @@ class Routes {
     const user = WebSession.getUser(session);
     if (author) {
       const mistrust = await Trust.mistrust(user, _id);
-      const karma = await Karma.decreaseKarma(author);
+      const karma = await Karma.decreaseKarma(author, mistrust.typeRemoved == TrustType.Trust);
       return { trustInfo: mistrust, karmaInfo: karma };
     }
   }
@@ -164,9 +164,9 @@ class Routes {
       let karma;
       const typeRemoved = trustInfo.typeRemoved;
       if (typeRemoved == TrustType.Trust) {
-        karma = await Karma.decreaseKarma(author);
+        karma = await Karma.decreaseKarma(author, false);
       } else if (typeRemoved == TrustType.Mistrust) {
-        karma = await Karma.increaseKarma(author);
+        karma = await Karma.increaseKarma(author, false);
       } else {
         console.log(author);
         karma = { msg: "Karma not modified!", karma: await Karma.karma.readOne({ user: author }) };
@@ -249,7 +249,7 @@ class Routes {
     const user = WebSession.getUser(session);
     if (author) {
       const trust = await Trust.trust(user, _id);
-      const karma = await Karma.increaseKarma(author);
+      const karma = await Karma.increaseKarma(author, trust.typeRemoved == TrustType.Mistrust);
       return { trustInfo: trust, karmaInfo: karma };
     }
   }
@@ -261,7 +261,7 @@ class Routes {
     const user = WebSession.getUser(session);
     if (author) {
       const mistrust = await Trust.mistrust(user, _id);
-      const karma = await Karma.decreaseKarma(author);
+      const karma = await Karma.decreaseKarma(author, mistrust.typeRemoved == TrustType.Trust);
       return { trustInfo: mistrust, karmaInfo: karma };
     }
   }
@@ -276,9 +276,9 @@ class Routes {
       let karma;
       const typeRemoved = trustInfo.typeRemoved;
       if (typeRemoved == TrustType.Trust) {
-        karma = await Karma.decreaseKarma(author);
+        karma = await Karma.decreaseKarma(author, false);
       } else if (typeRemoved == TrustType.Mistrust) {
-        karma = await Karma.increaseKarma(author);
+        karma = await Karma.increaseKarma(author, false);
       } else {
         karma = { msg: "Karma not modified!", karma: await Karma.karma.readOne({ user: author }) };
       }
