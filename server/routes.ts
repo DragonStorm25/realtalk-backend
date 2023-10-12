@@ -162,7 +162,7 @@ class Routes {
     const trustInfo = await Trust.neutralize(user, _id);
     if (author) {
       let karma;
-      const typeRemoved = (await trustInfo).typeRemoved;
+      const typeRemoved = trustInfo.typeRemoved;
       if (typeRemoved == TrustType.Trust) {
         karma = await Karma.decreaseKarma(author);
       } else if (typeRemoved == TrustType.Mistrust) {
@@ -273,7 +273,7 @@ class Routes {
     const trustInfo = await Trust.neutralize(user, _id);
     if (author) {
       let karma;
-      const typeRemoved = (await trustInfo).typeRemoved;
+      const typeRemoved = trustInfo.typeRemoved;
       if (typeRemoved == TrustType.Trust) {
         karma = await Karma.decreaseKarma(author);
       } else if (typeRemoved == TrustType.Mistrust) {
