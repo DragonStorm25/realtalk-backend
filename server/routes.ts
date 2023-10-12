@@ -148,7 +148,7 @@ class Routes {
     const user = WebSession.getUser(session);
     if (author) {
       const karma = await Karma.decreaseKarma(author);
-      return { trustInfo: await Trust.trust(user, _id), karmaInfo: karma };
+      return { trustInfo: await Trust.mistrust(user, _id), karmaInfo: karma };
     }
   }
 
