@@ -55,7 +55,7 @@ const operations: operation[] = [
   },
   {
     name: "Get User Karma",
-    endpoint: "/api/users/:username/karma",
+    endpoint: "/api/users/:_id/karma",
     method: "GET",
     fields: { username: "input"},
   },
