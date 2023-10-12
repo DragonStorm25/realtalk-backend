@@ -137,7 +137,7 @@ class Routes {
     const user = WebSession.getUser(session);
     if (author) {
       const karma = await Karma.increaseKarma(author);
-      return { trustInfo: Trust.trust(user, _id), karmaInfo: karma };
+      return { trustInfo: await Trust.trust(user, _id), karmaInfo: karma };
     }
   }
 
@@ -148,7 +148,7 @@ class Routes {
     const user = WebSession.getUser(session);
     if (author) {
       const karma = await Karma.decreaseKarma(author);
-      return { trustInfo: Trust.trust(user, _id), karmaInfo: karma };
+      return { trustInfo: await Trust.trust(user, _id), karmaInfo: karma };
     }
   }
 
@@ -157,7 +157,7 @@ class Routes {
     await Post.assertPostExists(_id);
     const author = (await Post.posts.readOne({ _id }))?.author;
     const user = WebSession.getUser(session);
-    const trustInfo = Trust.neutralize(user, _id);
+    const trustInfo = await Trust.neutralize(user, _id);
     if (author) {
       let karma;
       if ((await trustInfo).typeRemoved == TrustType.Trust) {
@@ -243,7 +243,7 @@ class Routes {
     const user = WebSession.getUser(session);
     if (author) {
       const karma = await Karma.increaseKarma(author);
-      return { trustInfo: Trust.trust(user, _id), karmaInfo: karma };
+      return { trustInfo: await Trust.trust(user, _id), karmaInfo: karma };
     }
   }
 
@@ -254,7 +254,7 @@ class Routes {
     const user = WebSession.getUser(session);
     if (author) {
       const karma = await Karma.decreaseKarma(author);
-      return { trustInfo: Trust.trust(user, _id), karmaInfo: karma };
+      return { trustInfo: await Trust.trust(user, _id), karmaInfo: karma };
     }
   }
 
@@ -263,7 +263,7 @@ class Routes {
     await Comment.assertCommentExists(_id);
     const author = (await Post.posts.readOne({ _id }))?.author;
     const user = WebSession.getUser(session);
-    const trustInfo = Trust.neutralize(user, _id);
+    const trustInfo = await Trust.neutralize(user, _id);
     if (author) {
       let karma;
       if ((await trustInfo).typeRemoved == TrustType.Trust) {
