@@ -2,7 +2,7 @@ import { ObjectId } from "mongodb";
 
 import { Router, getExpressRouter } from "./framework/router";
 
-import { Friend, Post, User, WebSession, Comment, Like, Trust } from "./app";
+import { Friend, Post, User, WebSession, Comment, Like, Trust, Karma } from "./app";
 import { PostDoc, PostOptions } from "./concepts/post";
 import { CommentDoc } from "./concepts/comment";
 import { UserDoc } from "./concepts/user";
@@ -28,7 +28,8 @@ class Routes {
 
   @Router.get("/users/:username/karma")
   async getKarma(username: string) {
-    // Get karma of user
+    const user = await User.getUserByUsername(username);
+    await Karma.getKarma(user._id);
   }
 
   @Router.patch("/users/:username/karma/increase")
