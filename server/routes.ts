@@ -29,7 +29,7 @@ class Routes {
 
   @Router.get("/users/:_id/karma")
   async getKarma(_id: ObjectId) {
-    await Karma.getKarma(_id);
+    return await Karma.getKarma(_id);
   }
 
   @Router.post("/users")
