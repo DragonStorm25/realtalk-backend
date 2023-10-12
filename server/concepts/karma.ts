@@ -35,6 +35,7 @@ export default class KarmaConcept {
     if (karma) {
       return karma?.karmaAmount;
     } else {
+      // Assumes user exists and just has no stored karma
       return 0;
     }
   }
