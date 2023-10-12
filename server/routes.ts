@@ -27,10 +27,9 @@ class Routes {
     return await User.getUserByUsername(username);
   }
 
-  @Router.get("/users/:username/karma")
-  async getKarma(username: string) {
-    const user = await User.getUserByUsername(username);
-    await Karma.getKarma(user._id);
+  @Router.get("/users/:_id/karma")
+  async getKarma(_id: ObjectId) {
+    await Karma.getKarma(_id);
   }
 
   @Router.post("/users")
