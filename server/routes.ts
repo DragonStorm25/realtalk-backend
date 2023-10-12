@@ -136,8 +136,9 @@ class Routes {
     const author = (await Post.posts.readOne({ _id }))?.author;
     const user = WebSession.getUser(session);
     if (author) {
+      const trust = await Trust.trust(user, _id);
       const karma = await Karma.increaseKarma(author);
-      return { trustInfo: await Trust.trust(user, _id), karmaInfo: karma };
+      return { trustInfo: trust, karmaInfo: karma };
     }
   }
 
@@ -147,8 +148,9 @@ class Routes {
     const author = (await Post.posts.readOne({ _id }))?.author;
     const user = WebSession.getUser(session);
     if (author) {
+      const mistrust = await Trust.mistrust(user, _id);
       const karma = await Karma.decreaseKarma(author);
-      return { trustInfo: await Trust.mistrust(user, _id), karmaInfo: karma };
+      return { trustInfo: mistrust, karmaInfo: karma };
     }
   }
 
@@ -245,8 +247,9 @@ class Routes {
     const author = (await Comment.comments.readOne({ _id }))?.author;
     const user = WebSession.getUser(session);
     if (author) {
+      const trust = await Trust.trust(user, _id);
       const karma = await Karma.increaseKarma(author);
-      return { trustInfo: await Trust.trust(user, _id), karmaInfo: karma };
+      return { trustInfo: trust, karmaInfo: karma };
     }
   }
 
@@ -256,8 +259,9 @@ class Routes {
     const author = (await Comment.comments.readOne({ _id }))?.author;
     const user = WebSession.getUser(session);
     if (author) {
+      const mistrust = await Trust.trust(user, _id);
       const karma = await Karma.decreaseKarma(author);
-      return { trustInfo: await Trust.trust(user, _id), karmaInfo: karma };
+      return { trustInfo: mistrust, karmaInfo: karma };
     }
   }
 
